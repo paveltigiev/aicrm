@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
+import { decodeCredential } from 'vue3-google-login'
+import TelegramLogin from './TelegramLogin.vue';
 
 defineProps({
   visible: {
@@ -14,6 +16,14 @@ const emits = defineEmits(['hideSidebar'])
 const hideSidebar = () => {
   emits('hideSidebar')
 }
+const googleCallback = (response: any) => {
+  const userData = decodeCredential(response.credential)
+  console.log("userData", userData)
+}
+const telegramCallback = (user: any) => {
+  console.log(user)
+}
+
 </script>
 
 <template>
@@ -33,8 +43,20 @@ const hideSidebar = () => {
             <div class="sidebar__content-subtitle">Sign in to join waitlist</div>
           </div>
           <div class="sidebar__content-btngroup">
-            <div class="btn">Sign in with Google</div>
-            <div class="btn">Sign in with Discord</div>
+            <google-login :callback="googleCallback">
+              <div class="btn">
+                <img src="/img/icons/google.svg" alt="Google">
+                Sign in with Google
+              </div>
+            </google-login>
+
+            <telegram-login
+              mode="callback"
+              telegram-login="myaut_bot"
+              @callback="telegramCallback"
+              class="btn"
+            />
+
             <div class="sidebar__content-info">
               By signing in, you are agreeing to the <a href="#" class="sidebar__content-info-link">Terms of Service</a> and <a href="#" class="sidebar__content-info-link">Privasy Polycy</a>
             </div>
@@ -55,6 +77,13 @@ const hideSidebar = () => {
   z-index: 999;
   display: flex;
   justify-content: flex-end;
+
+  transition: transform 0.3s ease; // Add transition property
+
+  &.sidebar--visible {
+    transform: translateX(0); // Move the sidebar in when visible
+  }
+
 
   &__overlay {
     position: fixed;
@@ -117,7 +146,7 @@ const hideSidebar = () => {
     &-signin {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 30px;
     }
     &-hgroup {
       display: flex;
@@ -142,8 +171,9 @@ const hideSidebar = () => {
       gap: 16px;
 
       .btn {
-        padding: 19px 32px;
+        padding: 16px 32px;
         color: #000;
+        gap: 13px;
       }
     }
     &-info {

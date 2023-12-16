@@ -89,7 +89,7 @@
       height: 80px;
       top: 624px;
       left: 40px;
-      background: url('/public/img/play.svg') 0 0 no-repeat;
+      background: url('/img/play.svg') 0 0 no-repeat;
       background-size: cover;
       cursor: pointer;
       z-index: 2;

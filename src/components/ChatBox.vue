@@ -46,7 +46,7 @@ onUnmounted(() => {
         <div class="chat__card-header-title">gogol.chat</div>
       </div>
       <div class="chat__card-messages">
-        <div class="chat__card-messages-message" v-for="(message, index) in chat_messages" :key="index" :class="{ 'slide-in-from-bottom': index === chat_messages.length - 1 }">
+        <div class="chat__card-messages-message slide-in-from-bottom" v-for="(message, index) in chat_messages" :key="index">
           <div class="chat__card-messages-message-text">{{ message }}</div>
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10" fill="none" class="chat__card-messages-message-tail">
             <path d="M0 10L12.5 0L0 1.00947e-06V10Z" />
@@ -295,20 +295,4 @@ onUnmounted(() => {
     }
   }
 }
-
-@keyframes slideInFromBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.slide-in-from-bottom {
-  animation: slideInFromBottom 0.5s ease-out;
-}
-
 </style>
