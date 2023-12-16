@@ -1,0 +1,11 @@
+@mixin contentWidth() {
+  @include mq($bp-super-small, $bp-medium-big) {
+    max-width: 335px;
+  }
+  @include mq($bp-medium-big, $bp-big) {
+    max-width: 904px;
+  }
+  @include mq($bp-big) {
+    max-width: 1320px;
+  }
+}
