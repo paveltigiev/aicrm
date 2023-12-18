@@ -22,6 +22,7 @@ a:hover {
   width: 100%;
   padding: 20px 0;
   z-index: 2;
+  transition: opacity 0.1s ease;
 
   @include mq($bp-super-small, $bp-medium-big) {
     padding: 17px 0;
