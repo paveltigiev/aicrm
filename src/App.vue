@@ -1,8 +1,35 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const header = ref(null)
+
+onMounted(() => {
+  const handleScroll = () => {
+    if (header.value) {
+      let scrollPosition = window.scrollY;
+      let opacity = 1 - scrollPosition / 200
+      if (opacity < 0) {
+        opacity = 0
+        header.value.style.display = 'none'
+      } else {
+        header.value.style.display = 'block'
+      }
+      header.value.style.opacity = opacity.toString()
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('scroll', handleScroll)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+})
 </script>
 
 <template>
-  <header class="header">
+  <header class="header" ref="header">
     <div class="container">
       <a href="#" class="logo"></a>
     </div>
@@ -22,4 +49,9 @@
 </template>
 
 <style scoped lang="scss">
+.header {
+  position: fixed;
+  top: 0;
+  transition: opacity 0.1s ease;
+}
 </style>
