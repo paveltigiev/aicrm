@@ -86,7 +86,7 @@ const telegramCallback = (user: any) => {
   z-index: 2;
   right: 0;
   top: 0;
-  transition: .7s;
+  transition: .3s;
 
   &-visible {
     transform: translateX(0);

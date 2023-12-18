@@ -1,39 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-
-function addElementsEverySecond(arr1: any[], arr2: any[]): void {
-  let index = 0
-
-  const intervalId = ref<number | null>(null)
-
-  intervalId.value = setInterval(() => {
-    if (index < arr1.length) {
-      arr2.push(arr1[index])
-      index++
-    } else {
-      clearInterval(intervalId.value!)
-    }
-  }, 1000)
-}
-
-const messages = [
-  'How many leads was today?',
-  'Today was 10 new leads, 2 of it already won on $7200.',
-  'Who win more leads last week?',
-  'Tell me about your business, boy',
-  'Samanta wins 20 leads last week, total on $50234'
-]
-const chat_messages = ref<any[]>([])
-
-onMounted(() => {
-  addElementsEverySecond(messages, chat_messages.value)
-})
-
-onUnmounted(() => {
-  if (intervalId.value !== null) {
-    clearInterval(intervalId.value)
-  }
-})
 </script>
 
 <template>
@@ -46,11 +11,25 @@ onUnmounted(() => {
         <div class="chat__card-header-title">gogol.chat</div>
       </div>
       <div class="chat__card-messages">
-        <div class="chat__card-messages-message slide-in-from-bottom" v-for="(message, index) in chat_messages" :key="index">
-          <div class="chat__card-messages-message-text">{{ message }}</div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10" fill="none" class="chat__card-messages-message-tail">
-            <path d="M0 10L12.5 0L0 1.00947e-06V10Z" />
-          </svg>
+        <div class="chat__card-messages-message message-from__bot" style="--timeline: 1s;">
+          <div class="chat__card-messages-message-text">How many leads was today?</div>
+          <div class="chat__card-messages-message-tail"></div>
+        </div>
+        <div class="chat__card-messages-message message-from__user" style="--timeline: 2s;">
+          <div class="chat__card-messages-message-text">Today was 10 new leads, 2 of it already won on $7200.</div>
+          <div class="chat__card-messages-message-tail"></div>
+        </div>
+        <div class="chat__card-messages-message message-from__bot" style="--timeline: 3s;">
+          <div class="chat__card-messages-message-text">Who win more leads last week?</div>
+          <div class="chat__card-messages-message-tail"></div>
+        </div>
+        <div class="chat__card-messages-message message-from__user" style="--timeline: 4s;">
+          <div class="chat__card-messages-message-text">Tell me about your business, boy</div>
+          <div class="chat__card-messages-message-tail"></div>
+        </div>
+        <div class="chat__card-messages-message message-from__bot" style="--timeline: 5s;">
+          <div class="chat__card-messages-message-text">Samanta wins 20 leads last week, total on $50234</div>
+          <div class="chat__card-messages-message-tail"></div>
         </div>
       </div>
     </div>
@@ -204,7 +183,6 @@ onUnmounted(() => {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 32px;
       height: calc(100% - 60px);
       padding: 42px 32px;
       box-sizing: border-box;
@@ -213,12 +191,10 @@ onUnmounted(() => {
       @include mq($bp-medium-big, $bp-big) {
         height: calc(100% - 46px);
         padding: 31px 22px;
-        gap: 25px;
       }
       @include mq($bp-super-small, $bp-medium-big) {
         height: calc(100% - 38px);
         padding: 27px 21px;
-        gap: 21px;
       }
       &-message {
         position: relative;
@@ -226,6 +202,14 @@ onUnmounted(() => {
         font-size: 16px;
         font-weight: 450;
         line-height: 150%;
+
+        transform-origin: 0 100%;
+        padding-top: 0;
+        // transform: scale(0);
+        max-height: 0;
+        overflow: hidden;
+        animation: message .2s linear 0s forwards;
+        animation-delay: var(--timeline);
 
         &-text {
           display: flex;
@@ -261,14 +245,22 @@ onUnmounted(() => {
           bottom: -10px;
           fill: white;
 
+          width: 13px;
+          height: 10px;
+          background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'%3E%3Cpath d='M0 10L12.5 0L0 1.00947e-06V10Z' fill='white'/%3E%3C/svg%3E") no-repeat;
+
           @include mq($bp-super-small, $bp-medium-big) {
             bottom: -8px;
             width: 8.23px;
           }
         }
-
-        &:nth-child(2n-1) {
+      }
+      .message-from {
+        &__bot {
           flex-direction: row-reverse;
+          text-align: right;
+          align-self: flex-end;
+          transform-origin: 100% 100%;
 
           .chat__card-messages-message-text {
             border-radius: 24px 24px 0 24px;
@@ -285,13 +277,64 @@ onUnmounted(() => {
           .chat__card-messages-message-tail {
             right: 0;
             left: auto;
-            fill: #613DC4;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'%3E%3Cpath d='M0 10L12.5 0L0 1.00947e-06V10Z' fill='%23613DC4'/%3E%3C/svg%3E") no-repeat;
             transform: scaleX(-1);
-            @include mq($bp-super-small, $bp-medium-big) {
-            }
           }
         }
       }
+    }
+  }
+}
+
+@keyframes message {
+  0% {
+    max-height: 100vmax;
+    transform: translateY(120px);
+  }
+  70% {
+    transform: translateY(-10px);
+    padding-top: 42px;
+  }
+  100% {
+    transform: translateY(0);
+    max-height: 100vmax;
+    overflow: visible;
+    padding-top: 32px;
+  }
+}
+@include mq($bp-medium-big, $bp-big) {
+  @keyframes message {
+    0% {
+      max-height: 100vmax;
+      transform: translateY(120px);
+    }
+    80% {
+      transform: translateY(-8px);
+      padding-top: 33px;
+    }
+    100% {
+      transform: translateY(0);
+      max-height: 100vmax;
+      overflow: visible;
+      padding-top: 25px;
+    }
+  }
+}
+@include mq($bp-super-small, $bp-medium-big) {
+  @keyframes message {
+    0% {
+      max-height: 100vmax;
+      transform: translateY(120px);
+    }
+    80% {
+      transform: translateY(-6px);
+      padding-top: 27px;
+    }
+    100% {
+      transform: translateY(0);
+      max-height: 100vmax;
+      overflow: visible;
+      padding-top: 21px;
     }
   }
 }
