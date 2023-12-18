@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const header = ref(null)
+const header = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
   const handleScroll = () => {
