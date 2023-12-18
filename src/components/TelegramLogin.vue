@@ -4,6 +4,12 @@
 <script lang="ts" setup>
   import { ref, onMounted, defineProps, defineEmits } from 'vue'
 
+  declare global {
+    interface Window {
+      onTelegramAuth: (user: any) => void;
+    }
+  }
+
   const props = defineProps({
     mode: {
       type: String,
@@ -45,8 +51,9 @@
       type: String,
     }
   })
+
   const emit = defineEmits(['callback'])
-  const onTelegramAuth = (user) => {
+  const onTelegramAuth = (user: any) => {
     console.log('user-----', user)
     emit('callback', user)
   };
