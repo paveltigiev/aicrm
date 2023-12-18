@@ -89,10 +89,10 @@ const showSidebar = () => {
       }
 
       @include mq($bp-super-small, $bp-medium-big) {
+        width: 3px;
+        height: 34px;
         left: 132px;
         bottom: 3px;
-        left: 650px;
-        bottom: -5px;
       }
     }
   }

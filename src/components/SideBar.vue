@@ -92,12 +92,11 @@ const telegramCallback = (user: any) => {
     transform: translateX(0);
   }
   &-hidden {
-    transform: translateX(500px);
+    transform: translateX(100vw);
   }
 
   @include mq($bp-super-small, $bp-medium-big) {
     width: 100vw;
-    padding-top: 193px;
   }
 
   &__close-btn {
@@ -125,6 +124,11 @@ const telegramCallback = (user: any) => {
     background-repeat: no-repeat;
     background-size: 816px;
     background-position: center top;
+
+    @include mq($bp-super-small, $bp-medium-big) {
+      padding-top: 193px;
+      width: 100vw;
+    }
 
     &::before {
       content: '';
