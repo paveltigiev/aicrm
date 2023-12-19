@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
+import { defineProps } from 'vue'
 import { decodeCredential } from 'vue3-google-login'
 import TelegramLogin from './TelegramLogin.vue';
 
@@ -54,7 +54,6 @@ const telegramCallback = (user: any) => {
               mode="callback"
               telegram-login="myaut_bot"
               @callback="telegramCallback"
-              class="btn"
             />
 
             <div class="sidebar__content-info">

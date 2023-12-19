@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue'
+import {onMounted} from 'vue'
 const emits = defineEmits(['showSidebar'])
 
 const showSidebar = () => {

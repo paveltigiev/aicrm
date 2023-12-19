@@ -59,7 +59,6 @@
   };
   const telegram = ref()
   onMounted(() => {
-    // create script with given params
     const script = document.createElement('script')
     script.async = true
     script.src = 'https://telegram.org/js/telegram-widget.js?3'

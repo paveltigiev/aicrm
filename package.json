@@ -14,7 +14,10 @@
     "vue3-google-login": "^2.0.25"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.10.5",
     "@vitejs/plugin-vue": "^4.5.0",
+    "dotenv": "^16.3.1",
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
