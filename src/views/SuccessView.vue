@@ -14,8 +14,8 @@ import ChatBox from '../components/ChatBox.vue'
           />
         </div>
         <chat-box
-          title="I'm afraiding of loosing my data..."
-          text="Ask assistant anything you want about your CRM data. Sales statistics, manager velocity - image you have human assistant who can do all boring job."
+          title="Вы в списке"
+          text="Сейчас мы на этапе закрытого тестирования. Мы пригласим вас как только появится свободный слот..."
         />
       </div>
     </div>
