@@ -1,4 +1,23 @@
-<script setup lang="ts">
+<script setup>
+import { ref } from 'vue'
+
+defineProps({
+  title: {
+    required: false,
+    type: String,
+    default: ''
+  },
+  text: {
+    required: false,
+    type: String,
+    default: ''
+  },
+  messages: {
+    required: false,
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>
@@ -10,7 +29,12 @@
         </div>
         <div class="chat__card-header-title">gogol.chat</div>
       </div>
-      <div class="chat__card-messages">
+      <div class="chat__card-content" v-if="title || text">
+        <div class="chat__card-content-title" v-html="title"></div>
+        <div class="chat__card-content-text" v-html="text"></div>
+      </div>
+
+      <div class="chat__card-messages" v-if="messages">
         <div class="chat__card-messages-message message-from__bot" style="--timeline: 1s;">
           <div class="chat__card-messages-message-text">How many leads was today?</div>
           <div class="chat__card-messages-message-tail"></div>
@@ -179,6 +203,23 @@
         }
       }
     }
+
+    &-content {
+      display: flex;
+      gap: 34px;
+      flex-direction: column;
+      padding: 26px 33px;
+
+      &-title {
+        font-size: 30px;
+        letter-spacing: -1.1px;
+      }
+      &-text {
+        font-size: 18px;
+        line-height: 153%;
+      }
+    }
+
     &-messages {
       display: flex;
       flex-direction: column;

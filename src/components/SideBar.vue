@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 import { decodeCredential } from 'vue3-google-login'
 import TelegramLogin from './TelegramLogin.vue';
+import router from '../router';
 
 defineProps({
   visible: {
@@ -19,11 +20,12 @@ const hideSidebar = () => {
 const googleCallback = (response: any) => {
   const userData = decodeCredential(response.credential)
   console.log("userData", userData)
+  router.push('/success')
 }
 const telegramCallback = (user: any) => {
   console.log(user)
+  router.push('/success')
 }
-
 </script>
 
 <template>

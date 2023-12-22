@@ -1,20 +1,44 @@
 <script setup lang="ts">
+import VideoPlayer from '../components/VideoPlayer.vue'
+
 const emits = defineEmits(['showSidebar'])
 
 const showSidebar = () => {
   emits('showSidebar')
 }
+
+defineProps({
+  title: {
+    required: true,
+    type: String,
+    default: '',
+  },
+  text: {
+    required: false,
+    type: String,
+    default: '',
+  },
+  video: {
+    required: false,
+    type: String,
+    default: '',
+  },
+  btn: {
+    required: false,
+    type: Boolean,
+    default: false,
+  },
+})
 </script>
 
 <template>
   <div class="hero">
-    <h1 class="hero__title gradient-text">Brings humanity<br> to your CRM system</h1>
-    <p class="hero__text">
-      Enhance your service with AI assistant: talk with your CRM on human language, improves customer interactions, and eliminates tedious routine tasks
-    </p>
-    <button class="hero__button btn" @click="showSidebar">
+    <h1 class="hero__title gradient-text" v-html="title"></h1>
+    <p class="hero__text" v-html="text" v-if="text"></p>
+    <button class="hero__button btn" @click="showSidebar" v-if="btn">
       Request Demo
     </button>
+    <video-player :url="video" v-if="video" />
   </div>
 </template>
 
